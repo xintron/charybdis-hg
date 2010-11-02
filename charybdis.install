@@ -8,8 +8,9 @@ post_install() {
         useradd -g ircd -r ircd
     fi
 
-    if [ -d /var/log/ircd/ ]; then 
-        chown -R ircd:ircd /var/log/ircd/
+    if [ ! -d /var/log/charybdis/ ]; then 
+        mkdir /var/log/charybdis/
+        chown -R ircd:ircd /var/log/charybdis/
     fi
 
     echo " :: Copy /etc/charybdis/example.conf to /etc/charybdis/ircd.conf to use the example config."
