@@ -13,5 +13,12 @@ post_install() {
         chown -R ircd:ircd /var/log/charybdis/
     fi
 
+    if [ ! -f /usr/local/ircd/etc/ban.db ]; then
+        mkdir -p /usr/local/ircd/etc/
+        touch /usr/local/ircd/etc/ban.db
+        ln -s /usr/local/ircd/etc/ban.db /etc/charybdis/ban.db
+        chown -R ircd:ircd /usr/local/ircd/etc
+    fi
+
     echo " :: Copy /etc/charybdis/example.conf to /etc/charybdis/ircd.conf to use the example config."
 }

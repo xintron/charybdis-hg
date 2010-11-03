@@ -1,21 +1,22 @@
 #!/bin/bash
  
 NAME=ircd
-DAEMON=/usr/sbin/ircd
+DAEMON=/usr/local/ircd/bin/ircd
 PIDFILE=/var/run/$NAME.pid
  
 . /etc/rc.conf
 . /etc/rc.d/functions
  
-PID=`pidof -o %PPID $DAEMON`
+touch $PIDFILE
+
 case "$1" in
     start)
         stat_busy "Starting ircd"
-        [ -z "$PIDFILE" ] && `su ircd -c "$DAEMON"`
-        if [ $? -gt 0 ]; then
+        [ -z `cat $PIDFILE` ] && `su ircd -c "$DAEMON"`
+        PID=`pidof -o %PPID $DAEMON`
+        if [ -z $PID ]; then
             stat_fail
         else
-            PID=`pidof -o %PPID $DAEMON`
             echo $PID > $PIDFILE
             add_daemon $NAME
             stat_done
@@ -23,14 +24,17 @@ case "$1" in
         ;;
     stop)
         stat_busy "Stopping ircd"
-        PID=`cat $PIDFILE`
-        kill $PID > /dev/null
-        if [ $? -gt 0 ]; then
-            stat_fail
+        if [ ! -z `cat $PIDFILE` ]; then
+            PID=`cat $PIDFILE`
+            kill $PID > /dev/null
+            if [ $? -gt 0 ]; then
+                stat_fail
+            else
+                rm_daemon $NAME
+                stat_done
+            fi
         else
-            rm $PIDFILE
-            rm_daemon $NAME
-            stat_done
+            stat_fail
         fi
         ;;
     restart|force-reload)

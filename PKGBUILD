@@ -1,6 +1,6 @@
 # Maintainer: Marcus Carlsson <carlsson.marcus@gmail.com>
 pkgname=charybdis-hg
-pkgver=20101102
+pkgver=20101103
 pkgrel=1
 pkgdesc="A modular, scalable IRC daemon"
 arch=('any')
@@ -12,7 +12,7 @@ source=('ircd.d')
 install='charybdis.install'
 provides=('charybdis')
 conflicts=('charybdis')
-md5sums=('dda13e85f749ebcc2a0440c7474fa77a')
+md5sums=('b02cb260f3d5c089f5accb86145bd21f')
 
 _hgroot="http://hg.atheme.org/charybdis/"
 _hgname="charybdis"
@@ -34,9 +34,8 @@ build() {
     msg "Starting build process."
 
     ./configure --prefix="/usr/local/ircd" \
-        --bindir=/usr/sbin/ \
-        --with-confdir=/etc/charybdis \
-        --with-logdir=/var/log/charybdis \
+        --with-confdir="/etc/charybdis" \
+        --with-logdir="/var/log/charybdis" \
         --enable-epoll \
         --enable-openssl \
         --disable-assert \
