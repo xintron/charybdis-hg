@@ -30,6 +30,7 @@ case "$1" in
             if [ $? -gt 0 ]; then
                 stat_fail
             else
+                rm $PIDFILE
                 rm_daemon $NAME
                 stat_done
             fi

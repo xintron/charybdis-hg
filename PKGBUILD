@@ -12,7 +12,7 @@ source=('ircd.d')
 install='charybdis.install'
 provides=('charybdis')
 conflicts=('charybdis')
-md5sums=('b02cb260f3d5c089f5accb86145bd21f')
+md5sums=('d4b32f0d1f8c477da97a5c3bd9206b8a')
 
 _hgroot="http://hg.atheme.org/charybdis/"
 _hgname="charybdis"
