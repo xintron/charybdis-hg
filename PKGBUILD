@@ -40,7 +40,7 @@ build() {
         --enable-openssl \
         --disable-assert \
         --enable-small-net \
-        --with-nicklen=10 || return 1
+        --with-nicklen=12 || return 1
 
     make || return 1
 }
