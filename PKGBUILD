@@ -22,7 +22,7 @@ build() {
 
     msg "Connecting to the mecurial-server"
     if [ -d $_hgname ]; then
-        (cd $_hgname && hg update || return 1)
+        (cd $_hgname && hg pull && hg update || return 1)
     else
         hg clone $_hgroot || return 1
     fi
